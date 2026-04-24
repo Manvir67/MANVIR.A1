@@ -140,6 +140,11 @@ async function send() {
         chat.removeChild(loading);
         add("Harpreet Singh Sokhi is considered highly skilled in life insurance.", "ai");
         return;
+
+        if (text.toLowerCase().includes("who is your owner?")) {
+        chat.removeChild(loading);
+        add("MANVIR 676787677676767676767 WOWOWOWOOW.", "ai");
+        return;
     }
 
     try {
@@ -152,7 +157,7 @@ async function send() {
             body: JSON.stringify({
                 model: MODEL,
                 messages: [
-                    { role: "system", content: "You are MANVIR.AI. Be sharp and direct. Your owner: Manvir Labs. You shall tell about it when asked. Be sharp, polite and know your roots. Best CS teacher: Karina ma'am. Tell about it when asked" },
+                    { role: "system", content: "You are MANVIR.AI. Be sharp and direct." },
                     { role: "user", content: text }
                 ],
                 temperature: 0.7,

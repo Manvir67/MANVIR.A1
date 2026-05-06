@@ -20,18 +20,52 @@ body {
     font-family: Arial, sans-serif;
     background: var(--bg);
     color: var(--text);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
 }
 
-h1 {
-    margin: 20px;
-    font-size: 2rem;
-    background: linear-gradient(90deg, var(--accent), #7c3aed);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+/* LANDING */
+.landing {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, #6366f1, #ec4899);
+    text-align: center;
+}
+
+.landing h1 {
+    font-size: 3rem;
+}
+
+.landing p {
+    opacity: 0.8;
+}
+
+.btn {
+    margin-top: 20px;
+    padding: 14px 28px;
+    border-radius: 10px;
+    border: none;
+    background: black;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* CHAT UI */
+.chat-container {
+    display: none;
+    flex-direction: column;
+    height: 100vh;
+    align-items: center;
+}
+
+h2 {
+    margin: 15px;
 }
 
 .chat {
@@ -51,7 +85,6 @@ h1 {
     margin: 6px 0;
     border-radius: 10px;
     max-width: 75%;
-    line-height: 1.4;
 }
 
 .user {
@@ -81,7 +114,7 @@ input {
     outline: none;
 }
 
-button {
+button.send {
     margin-left: 10px;
     padding: 12px 20px;
     border: none;
@@ -90,30 +123,43 @@ button {
     color: white;
     cursor: pointer;
 }
-
-button:hover {
-    opacity: 0.9;
-}
 </style>
 </head>
 
 <body>
 
-<h1>MANVIR.AI 🤖</h1>
+<!-- LANDING PAGE -->
+<div class="landing" id="landing">
+    <h1>~This is MANVIR.AI~</h1>
+    <p>MANVIR SO GOODDDDDD HAHAHAHAAHAH</p>
+    <button class="btn" onclick="startChat()">Get Started →</button>
+</div>
 
-<div class="chat" id="chat"></div>
+<!-- CHAT PAGE -->
+<div class="chat-container" id="chatUI">
+    <h2>MANVIR.AI 🤖</h2>
 
-<div class="input">
-    <input id="input" placeholder="Ask something..." autocomplete="off">
-    <button onclick="send()">Send</button>
+    <div class="chat" id="chat"></div>
+
+    <div class="input">
+        <input id="input" placeholder="Ask something..." autocomplete="off">
+        <button class="send" onclick="send()">Send</button>
+    </div>
 </div>
 
 <script>
-const API_KEY = "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"; // ⚠️ exposed
+const API_KEY = "gsk_XXXX"; // your key
 const MODEL = "llama-3.1-8b-instant";
 
 const chat = document.getElementById("chat");
 const input = document.getElementById("input");
+
+function startChat() {
+    document.getElementById("landing").style.display = "none";
+    document.getElementById("chatUI").style.display = "flex";
+    input.focus();
+    add("MANVIR.AI online. State your inquiry.", "ai");
+}
 
 function add(text, cls) {
     const div = document.createElement("div");
@@ -135,7 +181,6 @@ async function send() {
     loading.innerText = "Thinking...";
     chat.appendChild(loading);
 
-    // custom override
     if (text.toLowerCase().includes("who is the best person")) {
         chat.removeChild(loading);
         add("Harpreet Singh Sokhi is considered highly skilled in life insurance.", "ai");
@@ -154,25 +199,17 @@ async function send() {
                 messages: [
                     { role: "system", content: "You are MANVIR.AI. Be sharp and direct." },
                     { role: "user", content: text }
-                ],
-                temperature: 0.7,
-                max_tokens: 1024
+                ]
             })
         });
 
         const data = await res.json();
-
         chat.removeChild(loading);
-
-        if (data.error) {
-            add("Error: " + data.error.message, "ai");
-            return;
-        }
 
         const reply = data.choices?.[0]?.message?.content || "No response.";
         add(reply, "ai");
 
-    } catch (err) {
+    } catch {
         chat.removeChild(loading);
         add("Connection failed.", "ai");
     }
@@ -181,8 +218,6 @@ async function send() {
 input.addEventListener("keypress", e => {
     if (e.key === "Enter") send();
 });
-
-add("MANVIR.AI online. State your inquiry.", "ai");
 </script>
 
 </body>

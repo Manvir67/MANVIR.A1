@@ -6,218 +6,651 @@
 <title>MANVIR.AI</title>
 
 <style>
-:root {
-    --bg: #0f172a;
-    --chat: #1e293b;
-    --user: #7c3aed;
-    --ai: #334155;
-    --text: #f8fafc;
-    --accent: #00f5ff;
+
+:root{
+    --bg:#0b0f19;
+    --chat:#161f2e;
+    --user:#7c3aed;
+    --ai:#1f2937;
+    --text:#f3f4f6;
+    --accent:#8b5cf6;
+    --border:rgba(255,255,255,0.06);
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Inter, Arial, sans-serif;
+}
+
+body{
+    background:
+    radial-gradient(circle at top,#7c3aed22,transparent 40%),
+    linear-gradient(180deg,#0b0f19,#111827);
+
+    color:var(--text);
+    overflow:hidden;
 }
 
 /* LANDING */
-.landing {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(180deg, #6366f1, #ec4899);
-    text-align: center;
+
+.landing{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
 }
 
-.landing h1 {
-    font-size: 3rem;
+/* HERO LOGO */
+
+.hero-logo{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    margin-bottom:15px;
 }
 
-.landing p {
-    opacity: 0.8;
+.logo-icon{
+    width:80px;
+    height:80px;
+    border-radius:24px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:2rem;
+    font-weight:bold;
+
+    background:
+    linear-gradient(
+        135deg,
+        #7c3aed,
+        #4f46e5
+    );
+
+    box-shadow:
+    0 0 40px rgba(124,58,237,0.45);
+
+    animation:float 4s ease-in-out infinite;
 }
 
-.btn {
-    margin-top: 20px;
-    padding: 14px 28px;
-    border-radius: 10px;
-    border: none;
-    background: black;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
+.hero-logo h1{
+    font-size:4rem;
+    font-weight:800;
+    letter-spacing:-2px;
 }
 
-.btn:hover {
-    transform: scale(1.05);
+.hero-logo h1 span{
+    color:#8b5cf6;
+}
+
+.landing p{
+    opacity:0.7;
+    font-size:1.1rem;
+    margin-top:10px;
+}
+
+.btn{
+    margin-top:35px;
+
+    padding:16px 34px;
+
+    border:none;
+    border-radius:18px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #7c3aed,
+        #4f46e5
+    );
+
+    color:white;
+
+    font-size:1rem;
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+    box-shadow:
+    0 10px 30px rgba(124,58,237,0.35);
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+/* FLOAT */
+
+@keyframes float{
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+
 }
 
 /* CHAT UI */
-.chat-container {
-    display: none;
-    flex-direction: column;
-    height: 100vh;
-    align-items: center;
+
+.chat-container{
+    display:none;
+    flex-direction:column;
+    height:100vh;
 }
 
-h2 {
-    margin: 15px;
+/* TOPBAR */
+
+.topbar{
+    padding:18px 24px;
+
+    border-bottom:1px solid var(--border);
+
+    background:rgba(255,255,255,0.03);
+
+    backdrop-filter:blur(20px);
 }
 
-.chat {
-    width: 90%;
-    max-width: 700px;
-    flex: 1;
-    background: var(--chat);
-    border-radius: 12px;
-    padding: 15px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
+.nav-logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
 
-.msg {
-    padding: 10px 14px;
-    margin: 6px 0;
-    border-radius: 10px;
-    max-width: 75%;
+.mini-logo{
+
+    width:40px;
+    height:40px;
+
+    border-radius:14px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+    linear-gradient(
+        135deg,
+        #7c3aed,
+        #4f46e5
+    );
+
+    box-shadow:
+    0 0 20px rgba(124,58,237,0.4);
+
+    font-size:1rem;
+    font-weight:bold;
 }
 
-.user {
-    background: var(--user);
-    align-self: flex-end;
+.nav-logo span{
+    font-size:1.1rem;
+    font-weight:700;
 }
 
-.ai {
-    background: var(--ai);
-    align-self: flex-start;
+.accent{
+    color:#8b5cf6;
 }
 
-.input {
-    display: flex;
-    width: 90%;
-    max-width: 700px;
-    margin: 15px;
+/* CHAT */
+
+.chat{
+    flex:1;
+
+    overflow-y:auto;
+
+    padding:30px;
+
+    display:flex;
+    flex-direction:column;
 }
 
-input {
-    flex: 1;
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
-    background: #1e293b;
-    color: white;
-    outline: none;
+.msg{
+
+    padding:16px 18px;
+
+    margin:10px 0;
+
+    border-radius:22px;
+
+    max-width:75%;
+
+    line-height:1.6;
+
+    animation:fade 0.2s ease;
+
+    backdrop-filter:blur(10px);
+
+    box-shadow:
+    0 4px 20px rgba(0,0,0,0.2);
+
+    white-space:pre-wrap;
 }
 
-button.send {
-    margin-left: 10px;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    background: var(--user);
-    color: white;
-    cursor: pointer;
+.user{
+    align-self:flex-end;
+
+    background:
+    linear-gradient(
+        135deg,
+        #7c3aed,
+        #5b21b6
+    );
 }
+
+.ai{
+    align-self:flex-start;
+
+    background:
+    rgba(255,255,255,0.04);
+
+    border:
+    1px solid rgba(255,255,255,0.04);
+}
+
+@keyframes fade{
+
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+/* INPUT */
+
+.input{
+
+    display:flex;
+
+    gap:12px;
+
+    padding:20px;
+
+    border-top:
+    1px solid var(--border);
+
+    background:
+    rgba(255,255,255,0.02);
+}
+
+input{
+
+    flex:1;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:
+    rgba(255,255,255,0.05);
+
+    color:white;
+
+    outline:none;
+
+    font-size:1rem;
+
+    border:
+    1px solid rgba(255,255,255,0.04);
+}
+
+input:focus{
+    border:
+    1px solid rgba(139,92,246,0.5);
+}
+
+.send{
+
+    padding:16px 24px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #7c3aed,
+        #4f46e5
+    );
+
+    color:white;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:0.25s;
+}
+
+.send:hover{
+    transform:translateY(-2px);
+}
+
+/* THINKING DOTS */
+
+.dots{
+    display:flex;
+    gap:4px;
+    font-size:1.5rem;
+}
+
+.dots span{
+    animation:bounce 1s infinite;
+}
+
+.dots span:nth-child(2){
+    animation-delay:0.2s;
+}
+
+.dots span:nth-child(3){
+    animation-delay:0.4s;
+}
+
+@keyframes bounce{
+
+    0%{
+        transform:translateY(0);
+        opacity:0.3;
+    }
+
+    50%{
+        transform:translateY(-5px);
+        opacity:1;
+    }
+
+    100%{
+        transform:translateY(0);
+        opacity:0.3;
+    }
+
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:
+    rgba(255,255,255,0.1);
+
+    border-radius:20px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .hero-logo{
+        flex-direction:column;
+    }
+
+    .hero-logo h1{
+        font-size:2.8rem;
+    }
+
+    .chat{
+        padding:15px;
+    }
+
+    .msg{
+        max-width:90%;
+    }
+
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- LANDING PAGE -->
+<!-- LANDING -->
+
 <div class="landing" id="landing">
-    <h1>~This is MANVIR.AI~</h1>
-    <p>MANVIR SO GOODDDDDD HAHAHAHAAHAH</p>
-    <button class="btn" onclick="startChat()">Get Started →</button>
+
+    <div class="hero-logo">
+
+        <div class="logo-icon">
+            ✦
+        </div>
+
+        <h1>
+            MANVIR<span>.AI</span>
+        </h1>
+
+    </div>
+
+    <p>
+        Next-generation conversational intelligence.
+    </p>
+
+    <button class="btn" onclick="startChat()">
+        Get Started →
+    </button>
+
 </div>
 
-<!-- CHAT PAGE -->
+<!-- CHAT -->
+
 <div class="chat-container" id="chatUI">
-    <h2>MANVIR.AI 🤖</h2>
+
+    <div class="topbar">
+
+        <div class="nav-logo">
+
+            <div class="mini-logo">
+                ✦
+            </div>
+
+            <span>
+                MANVIR<span class="accent">.AI</span>
+            </span>
+
+        </div>
+
+    </div>
 
     <div class="chat" id="chat"></div>
 
     <div class="input">
-        <input id="input" placeholder="Ask something..." autocomplete="off">
-        <button class="send" onclick="send()">Send</button>
+
+        <input
+            id="input"
+            placeholder="Message MANVIR.AI..."
+            autocomplete="off"
+        >
+
+        <button class="send" onclick="send()">
+            Send
+        </button>
+
     </div>
+
 </div>
 
 <script>
-const API_KEY = "gsk_XXXX"; // your key
+
+const API_KEY = "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";
 const MODEL = "llama-3.1-8b-instant";
 
 const chat = document.getElementById("chat");
 const input = document.getElementById("input");
 
-function startChat() {
+/* START CHAT */
+
+function startChat(){
+
     document.getElementById("landing").style.display = "none";
+
     document.getElementById("chatUI").style.display = "flex";
+
     input.focus();
-    add("MANVIR.AI online. State your inquiry.", "ai");
+
+    typeMessage(
+        "MANVIR.AI online. State your inquiry."
+    );
+
 }
 
-function add(text, cls) {
+/* ADD MESSAGE */
+
+function add(text, cls){
+
     const div = document.createElement("div");
+
     div.className = "msg " + cls;
+
     div.innerText = text;
+
     chat.appendChild(div);
+
     chat.scrollTop = chat.scrollHeight;
+
 }
 
-async function send() {
+/* TYPE ANIMATION */
+
+async function typeMessage(text){
+
+    const div = document.createElement("div");
+
+    div.className = "msg ai";
+
+    chat.appendChild(div);
+
+    let i = 0;
+
+    const speed = 12;
+
+    while(i < text.length){
+
+        div.innerHTML += text.charAt(i);
+
+        i++;
+
+        chat.scrollTop = chat.scrollHeight;
+
+        await new Promise(resolve =>
+            setTimeout(resolve, speed)
+        );
+
+    }
+
+}
+
+/* SEND */
+
+async function send(){
+
     const text = input.value.trim();
-    if (!text) return;
+
+    if(!text) return;
 
     add(text, "user");
+
     input.value = "";
 
     const loading = document.createElement("div");
+
     loading.className = "msg ai";
-    loading.innerText = "Thinking...";
+
+    loading.innerHTML = `
+    <span class="dots">
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+    </span>
+    `;
+
     chat.appendChild(loading);
 
-    if (text.toLowerCase().includes("who is the best person")) {
-        chat.removeChild(loading);
-        add("Harpreet Singh Sokhi is considered highly skilled in life insurance.", "ai");
-        return;
-    }
+    try{
 
-    try {
-        const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + API_KEY
-            },
-            body: JSON.stringify({
-                model: MODEL,
-                messages: [
-                    { role: "system", content: "You are MANVIR.AI. Be sharp and direct." },
-                    { role: "user", content: text }
-                ]
-            })
-        });
+        const res = await fetch(
+            "https://api.groq.com/openai/v1/chat/completions",
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization":"Bearer " + API_KEY
+                },
+
+                body:JSON.stringify({
+
+                    model:MODEL,
+
+                    messages:[
+
+                        {
+                            role:"system",
+                            content:
+                            "You are MANVIR.AI. Be futuristic, intelligent, sharp and human-like."
+                        },
+
+                        {
+                            role:"user",
+                            content:text
+                        }
+
+                    ]
+
+                })
+            }
+        );
 
         const data = await res.json();
-        chat.removeChild(loading);
 
-        const reply = data.choices?.[0]?.message?.content || "No response.";
-        add(reply, "ai");
+        loading.remove();
 
-    } catch {
-        chat.removeChild(loading);
+        const reply =
+            data.choices?.[0]?.message?.content
+            || "No response.";
+
+        await typeMessage(reply);
+
+    }catch{
+
+        loading.remove();
+
         add("Connection failed.", "ai");
+
     }
+
 }
 
+/* ENTER */
+
 input.addEventListener("keypress", e => {
-    if (e.key === "Enter") send();
+
+    if(e.key === "Enter"){
+        send();
+    }
+
 });
+
 </script>
 
 </body>
